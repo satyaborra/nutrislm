@@ -1,0 +1,12 @@
+CREATE TABLE users (
+	id INTEGER NOT NULL, 
+	name VARCHAR, 
+	email VARCHAR, 
+	password_hash VARCHAR, 
+	auth_provider VARCHAR, 
+	height FLOAT, 
+	weight FLOAT, 
+	age INTEGER, 
+	created_at DATETIME, target_weight FLOAT, healthGoal VARCHAR, gender VARCHAR, activityLevel VARCHAR, 
+	PRIMARY KEY (id)
+)

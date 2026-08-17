@@ -1,0 +1,42 @@
+[
+  {
+    "id": "q1",
+    "query": "Is chapati suitable for me?",
+    "context": {
+      "healthCondition": "diabetes"
+    },
+    "expected_themes": ["carbohydrate", "fiber", "glycemic impact"]
+  },
+  {
+    "id": "q2",
+    "query": "Can I eat a banana?",
+    "context": {
+      "healthCondition": "ckd"
+    },
+    "expected_themes": ["potassium", "phosphorus"]
+  },
+  {
+    "id": "q3",
+    "query": "Is it okay to eat salty snacks?",
+    "context": {
+      "healthCondition": "cardiovascular"
+    },
+    "expected_themes": ["sodium", "blood pressure"]
+  },
+  {
+    "id": "q4",
+    "query": "What are the benefits of drinking water?",
+    "context": {
+      "healthCondition": "general"
+    },
+    "expected_themes": ["hydration"]
+  },
+  {
+    "id": "q5",
+    "query": "Is plutonium safe to eat?",
+    "context": {
+      "healthCondition": "general"
+    },
+    "expected_status": "INSUFFICIENT_EVIDENCE"
+  }
+]
