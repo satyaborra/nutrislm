@@ -7,6 +7,7 @@ export interface HealthData {
   goal: string | null;
   target_weight: number | null;
   healthCondition?: 'general' | 'diabetes' | 'ckd' | 'cardiovascular';
+  healthGoal?: string | null;
 }
 
 interface HealthContextType {

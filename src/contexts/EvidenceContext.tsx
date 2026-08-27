@@ -11,6 +11,7 @@ export interface EvidenceItem {
 
 export interface RAGResult {
   answer: string;
+  reply?: string;
   grounded: boolean;
   retrievalStatus: string;
   evidence: EvidenceItem[];

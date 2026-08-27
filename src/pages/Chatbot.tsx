@@ -38,7 +38,7 @@ const Chatbot: React.FC = () => {
 
     try {
       const result = await chatWithAssistant(userMessage.text);
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), text: result.answer || result.reply, sender: 'bot' }]);
+      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), text: result.answer || result.reply || '', sender: 'bot' }]);
       if (result.evidence && result.evidence.length > 0) {
         addEvidence(result.evidence);
       }
