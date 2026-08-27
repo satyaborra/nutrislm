@@ -35,13 +35,18 @@ class RAGPipeline:
         chunks = self.retriever.retrieve(query)
         return "\n\n".join(chunks)
 
-# Backward compatibility global instance
-rag_pipeline = RAGPipeline()
-
 # Global instance
 _pipeline = None
-def get_rag_pipeline():
+
+def get_rag_pipeline() -> RAGPipeline:
     global _pipeline
     if _pipeline is None:
         _pipeline = RAGPipeline()
     return _pipeline
+
+class LazyRAGPipeline:
+    def __getattr__(self, name):
+        return getattr(get_rag_pipeline(), name)
+
+# Backward compatibility global instance that only initializes when accessed
+rag_pipeline = LazyRAGPipeline()

@@ -1,9 +1,21 @@
 import os
+
+# Limit thread allocations to stay within 512MB RAM on free hosting tiers
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+try:
+    import torch
+    torch.set_num_threads(1)
+except Exception:
+    pass
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-load_dotenv()
 load_dotenv()
 
 # Debug API key loading

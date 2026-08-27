@@ -1,19 +1,24 @@
-import spacy
+_nlp = None
 
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    print("Warning: spaCy model 'en_core_web_sm' not found. Run 'python -m spacy download en_core_web_sm' to install it.")
-    nlp = None
+def get_nlp():
+    global _nlp
+    if _nlp is None:
+        try:
+            import spacy
+            _nlp = spacy.load("en_core_web_sm", disable=["ner", "lemmatizer", "textcat"])
+        except Exception as e:
+            print(f"Warning: spaCy model 'en_core_web_sm' could not be loaded: {e}")
+            _nlp = False
+    return _nlp if _nlp is not False else None
 
 def extract_food_entities(text: str) -> list[str]:
+    nlp = get_nlp()
     if not nlp:
         # Fallback simplistic extraction if model fails to load
         return [word for word in text.split() if len(word) > 3]
         
     doc = nlp(text)
     # Basic logic: combining NOUN chunks as potential food items.
-    # In a full system, a custom NER pipeline or rule-based matching is preferred.
     foods = []
     for chunk in doc.noun_chunks:
         foods.append(chunk.text.lower().strip())

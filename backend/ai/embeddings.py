@@ -21,11 +21,18 @@ class DocumentChunk:
 
 class EmbeddingManager:
     def __init__(self, model_name="all-MiniLM-L6-v2"):
-        self.encoder = SentenceTransformer(model_name)
+        self.model_name = model_name
+        self._encoder = None
         self.index = None
         self.chunks = [] # List of DocumentChunk
         
         self._initialize()
+
+    @property
+    def encoder(self):
+        if self._encoder is None:
+            self._encoder = SentenceTransformer(self.model_name)
+        return self._encoder
 
     def _initialize(self):
         """Loads index if it exists, otherwise builds it."""
