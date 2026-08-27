@@ -23,12 +23,13 @@ export const HealthProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [healthData, setHealthData] = useState<HealthData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
   const fetchHealthProfile = async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const res = await fetch('http://localhost:8000/api/user/health-profile', {
+      const res = await fetch(`${API_URL}/api/user/health-profile`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -45,7 +46,7 @@ export const HealthProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const updateHealthData = async (data: Partial<HealthData>) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:8000/api/user/health-profile', {
+      const res = await fetch(`${API_URL}/api/user/health-profile`, {
         method: 'PUT',
         headers: { 
           'Authorization': `Bearer ${token}`,

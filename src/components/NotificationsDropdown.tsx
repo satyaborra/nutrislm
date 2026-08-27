@@ -18,11 +18,13 @@ const NotificationsDropdown: React.FC = () => {
 
   const unreadCount = notifications.filter(n => !n.is_read).length;
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const res = await fetch('http://localhost:8000/api/notifications', {
+      const res = await fetch(`${API_URL}/api/notifications`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -52,7 +54,7 @@ const NotificationsDropdown: React.FC = () => {
   const markAsRead = async (id: number) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:8000/api/notifications/${id}/read`, {
+      await fetch(`${API_URL}/api/notifications/${id}/read`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -65,7 +67,7 @@ const NotificationsDropdown: React.FC = () => {
   const markAllAsRead = async () => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:8000/api/notifications/read-all`, {
+      await fetch(`${API_URL}/api/notifications/read-all`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });
